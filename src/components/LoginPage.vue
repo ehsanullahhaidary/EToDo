@@ -26,8 +26,8 @@
         class="login__icon"
       />
       <img
-        src="../assets/loginIcons/fitness.svg"
-        alt="Fitness"
+        src="../assets/loginIcons/medical.svg"
+        alt="Medical"
         class="login__icon"
       />
       <img
@@ -43,8 +43,8 @@
         class="login__icon"
       />
       <img
-        src="../assets/loginIcons/medical.svg"
-        alt="Medical"
+        src="../assets/loginIcons/fitness.svg"
+        alt="Fitness"
         class="login__icon"
       />
       <img
@@ -82,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 100px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -114,7 +114,7 @@
   /* border-radius: 7px; */
   border-right: 3px solid #727272;
   height: 400px;
-  width: 350px;
+  width: 300px;
   z-index: 2;
   background-color: #fff;
 }
@@ -123,6 +123,7 @@
   font-family: inherit;
   font-weight: 200;
   color: #363636;
+  letter-spacing: 1px;
 }
 
 .login__image {
@@ -152,7 +153,7 @@
 
 .login__sign-in-text {
   font-size: 20px;
-  text-align: end;
+  text-align: center;
   color: #7a7a7a;
   margin-top: 10px;
   font-weight: 200;
@@ -176,12 +177,12 @@
 }
 
 .login__left-icons {
-  margin-left: -55px;
+  margin-left: -105px;
   z-index: 1;
 }
 
 .login__right-icons {
-  margin-right: -55px;
+  margin-right: -105px;
   color: #7a7a7a;
 }
 
@@ -198,5 +199,49 @@
 
 .login__right-icons .login__icon {
   transform: rotate(-20deg);
+}
+
+@media (max-width: 900px) {
+  .login {
+    gap: 0px;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    overflow: unset;
+  }
+
+  .login-right {
+    align-items: center;
+    border: none;
+    height: auto;
+    width: auto;
+    flex-shrink: 0;
+    padding-left: 0;
+    z-index: 2;
+    background-color: #fff;
+  }
+
+  .login-left {
+    align-items: center;
+    gap: 25px;
+    flex-shrink: 0;
+    border: none;
+    height: auto;
+    width: auto;
+    padding-right: 0;
+    z-index: 2;
+    background-color: #fff;
+  }
+
+  .login__app-name {
+    margin-top: 30px;
+  }
+
+  .login__image {
+    margin-top: 0;
+  }
+
+  .login_icons {
+    display: none;
+  }
 }
 </style>
