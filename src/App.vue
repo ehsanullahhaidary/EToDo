@@ -1,50 +1,76 @@
 <template>
-  <p>
-    Ask a yes/no question:
-    <input v-model="question" :disabled="loading" />
-  </p>
-  <p>{{ answer }}</p>
-  <input ref="input" />
+  <LoginPage />
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue";
-
-const question = ref("");
-const answer = ref("Questions usually contain a question mark. ;-)");
-const loading = ref(false);
-const input = ref(null);
-
-// watch works directly on a ref
-watch(question, async (newQuestion, oldQuestion) => {
-  console.log("new: " + newQuestion + "   old: " + oldQuestion);
-  console.log("first");
-  if (newQuestion.includes("?")) {
-    loading.value = true;
-    answer.value = "Thinking...";
-    try {
-      const res = await fetch("https://yesno.wtf/api");
-      answer.value = (await res.json()).answer;
-    } catch (error) {
-      answer.value = "Error! Could not reach the API. " + error;
-    } finally {
-      loading.value = false;
-    }
-  }
-});
-
-onMounted(() => {
-  input.value.focus();
-});
+import LoginPage from "./components/LoginPage.vue";
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
+  font-family: "Montserrat", sans-serif;
+}
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
 }
 </style>
