@@ -3,13 +3,28 @@
     <div class="login">
       <div class="login-left">
         <span class="login__app-name">Ehsan To Do</span>
-        <span class="sign-in-button input-width">
-          <input type="text" placeholder="UserName" class="username" />
-        </span>
-        <span class="sign-in-button input-width">
-          <input type="password" placeholder="Password" class="username" />
-        </span>
-        <button class="sign-in-button button-width">Log in</button>
+
+        <form action="" class="login_form" @submit.prevent>
+          <span class="sign-in-button input-width">
+            <input
+              type="text"
+              v-model="userName"
+              placeholder="UserName"
+              class="login_input"
+            />
+          </span>
+          <span class="sign-in-button input-width">
+            <input
+              v-model="password"
+              type="password"
+              placeholder="Password"
+              class="login_input"
+            />
+          </span>
+          <button @click="loginSubmit()" class="sign-in-button button-width">
+            Log in
+          </button>
+        </form>
 
         <span class="login__sign-in-text"
           >Sign in with a google or <br />Facebook account
@@ -102,13 +117,28 @@
 </template>
 
 <script setup>
-// import Delete from "../assets/loginIcons/delete.svg";
+import { ref } from "vue";
+
+const user = {
+  userName: "Ehsanullah",
+  password: "12345",
+};
+
+const userName = ref("");
+const password = ref("");
+
+function loginSubmit() {
+  if (userName.value === user.userName && password.value === user.password) {
+    console.log("done");
+  }
+}
 </script>
 <style>
 .login-wrapper {
   white-space: nowrap;
   width: 100%;
   height: 100vh;
+
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -131,6 +161,7 @@
 .login {
   width: 900px;
   height: 600px;
+  max-height: 90%;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -179,6 +210,14 @@
   letter-spacing: 1px;
   margin-top: 40px;
   margin-bottom: auto;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 20px;
 }
 
 .login__image {
@@ -357,12 +396,18 @@ and the light arrount them ends here*/
   border-radius: 5px;
   border: 0;
   outline: none;
-  padding: 7px 10px;
+  padding: 10px 10px;
   color: #363636;
+  width: 100%;
+  height: 100%;
 }
 
 /* media for medium and small screens */
 @media (max-width: 950px) {
+  .login-wrapper {
+    background: white;
+  }
+
   .login {
     /* flex-direction: column-reverse; */
     /* justify-content: space-evenly; */
@@ -370,9 +415,11 @@ and the light arrount them ends here*/
     box-shadow: none;
     width: 100%;
     height: 100vh;
+    max-height: 100vh;
     border-radius: 0;
     align-items: stretch;
     justify-content: stretch;
+    overflow-y: scroll;
   }
 
   .login-right {
