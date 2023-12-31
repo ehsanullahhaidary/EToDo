@@ -1,10 +1,14 @@
 <template>
   <LoginPage />
+  <!-- <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/login">About</router-link>
+  </nav> -->
+  <router-link to="/login"></router-link>
+  <router-view />
 </template>
 
-<script setup>
-import LoginPage from "./components/LoginPage.vue";
-</script>
+<script setup></script>
 
 <style>
 #app {

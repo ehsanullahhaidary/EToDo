@@ -1,52 +1,64 @@
 <template>
   <div class="login-wrapper">
     <div class="login">
+      <!-- login left side (form) -->
       <div class="login-left">
+        <!-- App name at top of form -->
         <span class="login__app-name">Ehsan To Do</span>
 
+        <!-- form with two inputs and a button -->
         <form action="" class="login_form" @submit.prevent>
-          <span class="sign-in-button input-width">
+          <span
+            class="sign-in-button input-width"
+            :class="{
+              'input-round-error':
+                errorType === 'bothEmpty' || errorType === 'userEmpty',
+            }"
+          >
+            <!-- UserName input -->
             <input
               type="text"
               v-model="userName"
               placeholder="UserName"
               class="login_input"
+              :class="{
+                'error-input':
+                  errorType === 'bothEmpty' || errorType === 'userEmpty',
+              }"
             />
           </span>
-          <span class="sign-in-button input-width">
+          <span
+            class="sign-in-button input-width"
+            :class="{
+              'input-round-error':
+                errorType === 'bothEmpty' || errorType === 'passwordEmpty',
+            }"
+          >
+            <!-- Password input -->
             <input
               v-model="password"
               type="password"
               placeholder="Password"
               class="login_input"
+              :class="{
+                'error-input':
+                  errorType === 'bothEmpty' || errorType === 'passwordEmpty',
+              }"
             />
           </span>
+
+          <!-- form submit button -->
           <button @click="loginSubmit()" class="sign-in-button button-width">
             Log in
           </button>
         </form>
 
+        <!--  -->
         <span class="login__sign-in-text"
-          >Sign in with a google or <br />Facebook account
+          >Sign in with your UserName <br />and Password.
         </span>
-        <!-- <div class="login__buttons">
-          <button class="sign-in-button" role="button">
-            <img
-              src="../assets/loginIcons/google.svg"
-              alt="G"
-              class="button-icons"
-            />
-            Sign in
-          </button>
-          <button class="sign-in-button" role="button">
-            <img
-              src="../assets/loginIcons/facebook.svg"
-              alt="FB"
-              class="button-icons"
-            />
-            Sign in
-          </button>
-        </div> -->
+
+        <!-- app logo/company logo -->
         <img
           src="../assets/e_logo.jpg"
           alt="Company logo"
@@ -54,57 +66,7 @@
         />
       </div>
 
-      <!-- <div class="login__left-icons login_icons">
-        <img
-          src="../assets/loginIcons/delete.svg"
-          alt="Delete"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/run.svg"
-          alt="Running"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/cleaning.svg"
-          alt="Cleaning"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/medical.svg"
-          alt="Medical"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/restaurant.svg"
-          alt="Eat"
-          class="login__icon"
-        />
-      </div>
-      <div class="login__right-icons login_icons">
-        <img
-          src="../assets/loginIcons/build.svg"
-          alt="Build"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/fitness.svg"
-          alt="Fitness"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/shopping.svg"
-          alt="Shopping"
-          class="login__icon"
-        />
-        <img
-          src="../assets/loginIcons/sports.svg"
-          alt="Sport"
-          class="login__icon"
-        />
-        <img src="../assets/loginIcons/tv.svg" alt="TV" class="login__icon" />
-      </div> -->
-
+      <!-- the picture on right side of login section -->
       <div class="login-right">
         <img
           src="../assets/login-image.jpg"
@@ -118,7 +80,9 @@
 
 <script setup>
 import { ref } from "vue";
+import router from "@/router";
 
+// user Name and Password object
 const user = {
   userName: "Ehsanullah",
   password: "12345",
@@ -126,19 +90,33 @@ const user = {
 
 const userName = ref("");
 const password = ref("");
+const errorType = ref("");
 
+// form validation logic
 function loginSubmit() {
-  if (userName.value === user.userName && password.value === user.password) {
-    console.log("done");
+  if (userName.value === "" && password.value === "") {
+    errorType.value = "bothEmpty";
+  } else if (userName.value === "") {
+    errorType.value = "userEmpty";
+  } else if (password.value === "") {
+    errorType.value = "passwordEmpty";
+  } else if (
+    userName.value === user.userName &&
+    password.value === user.password
+  ) {
+    errorType.value = "";
+    router.push({ path: "/home" });
+  } else {
+    errorType.value = "bothEmpty";
   }
 }
 </script>
 <style>
+/* main wrapper for login page */
 .login-wrapper {
   white-space: nowrap;
   width: 100%;
   height: 100vh;
-
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -158,6 +136,7 @@ function loginSubmit() {
   );
 }
 
+/* login form wrapper */
 .login {
   width: 900px;
   height: 600px;
@@ -174,19 +153,15 @@ function loginSubmit() {
   border-radius: 10px;
 }
 
+/* picture on right of login */
 .login-right {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* border: 1px solid #b3b3b3; */
-  /* border-radius: 7px; */
-  /* border-left: 3px solid #727272; */
   height: 100%;
   width: 60%;
   flex-shrink: 0;
   z-index: 2;
 }
 
+/* left login side (app name, form and logo) */
 .login-left {
   display: flex;
   flex-direction: column;
@@ -194,14 +169,13 @@ function loginSubmit() {
   justify-content: space-between;
   gap: 25px;
   flex-shrink: 0;
-  /* border: 1px solid #b3b3b3; */
-  /* border-radius: 7px; */
-  /* border-right: 3px solid #727272; */
   height: 100%;
   width: 40%;
   z-index: 2;
   background-color: #fff;
 }
+
+/* app name */
 .login__app-name {
   font-size: 40px;
   font-family: inherit;
@@ -212,6 +186,7 @@ function loginSubmit() {
   margin-bottom: auto;
 }
 
+/* form */
 .login_form {
   display: flex;
   flex-direction: column;
@@ -220,6 +195,7 @@ function loginSubmit() {
   gap: 20px;
 }
 
+/* image at right of login */
 .login__image {
   width: 100%;
   height: 100%;
@@ -227,27 +203,7 @@ function loginSubmit() {
   pointer-events: none;
 }
 
-/* .login__button {
-  background-color: hsl(187deg 100% 69%);
-  color: hsl(0, 0%, 100%);
-  padding: 4px 100px;
-  padding-top: 6px;
-  border: 0;
-  cursor: pointer;
-  margin-top: 20px;
-  white-space: nowrap;
-  transition: all 0.2s;
-} */
-
-/* .login__button:hover {
-  background-color: hsl(187, 80%, 57%);
-  color: #f0f0f0;
-} */
-
-/* .login__button:focus {
-  scale: 1.02;
-} */
-
+/* text bellow form */
 .login__sign-in-text {
   font-size: 20px;
   letter-spacing: 1px;
@@ -257,6 +213,7 @@ function loginSubmit() {
   font-weight: 200;
 }
 
+/* company/app logo */
 .login__logo {
   width: 55px;
   border-radius: 7px;
@@ -267,48 +224,6 @@ function loginSubmit() {
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
-
-/* .login_icons {
-  width: 40px;
-  height: 400px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-} */
-
-/* .login__left-icons {
-  margin-left: -105px;
-  z-index: 1;
-}
-
-.login__right-icons {
-  margin-right: -105px;
-  color: #7a7a7a;
-}
-
-.login__icon {
-  background-color: #ebebeb;
-  padding: 2px;
-  border-radius: 5px;
-  pointer-events: none;
-}
-
-.login__left-icons .login__icon {
-  transform: rotate(20deg);
-}
-
-.login__right-icons .login__icon {
-  transform: rotate(-20deg);
-} */
-
-/* .login__buttons {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-} */
 
 /* CSS of Inputs and Button
 and the light arrount them starts here*/
@@ -340,8 +255,7 @@ and the light arrount them starts here*/
     #00ffd5,
     #002bff,
     #7a00ff,
-    #ff00c8,
-    #ff0000
+    #ff00c8
   );
   position: absolute;
   top: -2px;
@@ -392,6 +306,7 @@ and the light arrount them ends here*/
   padding: 0;
 }
 
+/* inputs */
 .input-width input {
   border-radius: 5px;
   border: 0;
@@ -402,6 +317,36 @@ and the light arrount them ends here*/
   height: 100%;
 }
 
+/* input when erro occures */
+.error-input {
+  background-color: rgb(255, 210, 210);
+}
+
+/* input border when erro occures */
+.input-round-error::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #ff0000,
+    #ff00c8
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  animation: glowing-sign-in-button 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
 /* media for medium and small screens */
 @media (max-width: 950px) {
   .login-wrapper {
@@ -409,8 +354,6 @@ and the light arrount them ends here*/
   }
 
   .login {
-    /* flex-direction: column-reverse; */
-    /* justify-content: space-evenly; */
     overflow: unset;
     box-shadow: none;
     width: 100%;
@@ -424,18 +367,9 @@ and the light arrount them ends here*/
 
   .login-right {
     display: none;
-    /* align-items: center;
-    border: none;
-    height: auto;
-    width: auto;
-    flex-shrink: 0;
-    padding-left: 0;
-    z-index: 2;
-    background-color: #fff; */
   }
 
   .login-left {
-    /* align-items: center; */
     gap: 25px;
     width: 100%;
     flex-shrink: 0;
@@ -449,13 +383,5 @@ and the light arrount them ends here*/
   .login__app-name {
     margin-top: 40px;
   }
-
-  /* .login__image {
-    margin-top: 0;
-  } */
-
-  /* .login_icons {
-    display: none;
-  } */
 }
 </style>
