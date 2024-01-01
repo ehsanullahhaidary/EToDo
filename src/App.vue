@@ -1,14 +1,25 @@
 <template>
-  <LoginPage />
   <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/login">About</router-link>
   </nav> -->
-  <router-link to="/login"></router-link>
+
+  <!-- <router-link to="/login"></router-link> -->
   <router-view />
 </template>
 
-<script setup></script>
+<script setup>
+import router from "./router";
+
+if (
+  localStorage.getItem("userName") === "Ehsanullah" &&
+  localStorage.getItem("password") === "12345"
+) {
+  router.push({ path: "/home" });
+} else {
+  router.push({ path: "/login" });
+}
+</script>
 
 <style>
 #app {

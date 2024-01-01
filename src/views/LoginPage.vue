@@ -104,7 +104,9 @@ function loginSubmit() {
     userName.value === user.userName &&
     password.value === user.password
   ) {
-    errorType.value = "";
+    localStorage.setItem("userName", userName.value);
+    localStorage.setItem("password", password.value);
+
     router.push({ path: "/home" });
   } else {
     errorType.value = "bothEmpty";
@@ -248,7 +250,6 @@ and the light arrount them starts here*/
   content: "";
   background: linear-gradient(
     45deg,
-    #ff0000,
     #ff7300,
     #fffb00,
     #48ff00,
@@ -269,10 +270,6 @@ and the light arrount them starts here*/
   animation: glowing-sign-in-button 20s linear infinite;
   transition: opacity 0.3s ease-in-out;
   border-radius: 5px;
-}
-
-.sign-in-button:focus::before {
-  animation-duration: 7s;
 }
 
 @keyframes glowing-sign-in-button {
