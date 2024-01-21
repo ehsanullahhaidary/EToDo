@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
+import TodayPage from "../views/TodayPage.vue";
+import InboxPage from "../views/InboxPage.vue";
 
 const routes = [
   {
@@ -15,6 +17,16 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomePage,
+  },
+  {
+    path: "/inbox",
+    name: "inbox",
+    component: InboxPage,
+  },
+  {
+    path: "/today",
+    name: "today",
+    component: TodayPage,
   },
   {
     path: "/:pathMatch(.*)*",

@@ -6,6 +6,7 @@
 
   <!-- <router-link to="/login"></router-link> -->
   <router-view />
+  <!-- <div class="a"></div> -->
 </template>
 
 <script setup>
@@ -23,8 +24,7 @@ if (
 
 <style>
 #app {
-  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
-  font-family: "Montserrat", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 /*
   1. Use a more-intuitive box-sizing model.

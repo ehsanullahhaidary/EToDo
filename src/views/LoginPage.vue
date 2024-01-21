@@ -106,7 +106,6 @@ function loginSubmit() {
   ) {
     localStorage.setItem("userName", userName.value);
     localStorage.setItem("password", password.value);
-
     router.push({ path: "/home" });
   } else {
     errorType.value = "bothEmpty";
